@@ -1,3 +1,4 @@
+import pandas as pd
 import praw
 import config
 
@@ -11,7 +12,7 @@ def collect_subreddit_history(subreddit_name, limit=100):
                          check_for_async=False)
 
     subreddit = reddit.subreddit(subreddit_name)
-    historical_data = []
+    data_list = []
 
     for submission in subreddit.new(limit=limit):
         data = {
@@ -20,12 +21,30 @@ def collect_subreddit_history(subreddit_name, limit=100):
             "created_utc": submission.created_utc,
             "upvotes": submission.score,
             "url": submission.url
+            # Add more fields as required
         }
-        historical_data.append(data)
+        data_list.append(data)
 
-    return historical_data
+    return pd.DataFrame(data_list)
 
-#Example Usage
-subreddit_data = collect_subreddit_history('watchexchange', limit=50)
-for data in subreddit_data:
-    print(data)
+# Example Usage
+df = collect_subreddit_history('python', limit=50)
+print(df.head())
+
+import psycopg2
+
+conn = psycopg2.connect(
+    host=config.pg_host,
+    database=config.pg_database,
+    user=config.pg_user,
+    password=config.pg_password)
+
+cur = conn.cursor()
+
+# Example: Insert data into the database
+# cur.execute("INSERT INTO your_table (column1, column2) VALUES (%s, %s)", (data1, data2))
+
+conn.commit()
+cur.close()
+conn.close()
+
