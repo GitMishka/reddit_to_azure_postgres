@@ -27,7 +27,7 @@ def collect_subreddit_history(subreddit_name, limit=100):
 
     return pd.DataFrame(data_list)
 
-df = collect_subreddit_history('python', limit=50)
+df = collect_subreddit_history('watchexchange', limit=5000)
 print(df.head())
 
 import psycopg2
