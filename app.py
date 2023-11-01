@@ -28,6 +28,7 @@ def collect_subreddit_history(subreddit_name, limit=100):
     return pd.DataFrame(data_list)
 
 df = collect_subreddit_history('watchexchange', limit=5000)
+df.to_csv('sample.csv')
 print(df.head())
 
 import psycopg2
