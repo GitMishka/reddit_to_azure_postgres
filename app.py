@@ -27,7 +27,6 @@ def collect_subreddit_history(subreddit_name, limit=100):
 
     return pd.DataFrame(data_list)
 
-# Example Usage
 df = collect_subreddit_history('python', limit=50)
 print(df.head())
 
