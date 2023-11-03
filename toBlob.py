@@ -7,5 +7,10 @@ import os
 # container_name = ""
 # blob_name = ".csv" 
 
-file_path = "sample.csv"
-updated_file_path = "path_to_your_local_sample_with_datetime.csv"
+file_repo_path = "C:\\Users\\Misha\\Desktop\\GitHub\\reddit_to_azure_postgres"
+file_name = "sample.csv"
+file_path = os.path.join(file_repo_path, file_name)
+
+df = pd.read_csv(file_path)
+
+df
