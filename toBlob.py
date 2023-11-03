@@ -2,6 +2,7 @@ import pandas as pd
 from azure.storage.blob import BlobServiceClient
 from datetime import datetime
 import os
+import config
 
 connect_str = 
 container_name = "github1"
