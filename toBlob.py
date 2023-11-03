@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import config
 
-connect_str = 
+connect_str = config.github1
 container_name = "github1"
 
 file_repo_path = "C:\\Users\\Misha\\Desktop\\GitHub\\reddit_to_azure_postgres"
