@@ -14,7 +14,7 @@ original_file_path = os.path.join(file_repo_path, original_file_name)
 df = pd.read_csv(original_file_path)
 
 current_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
-new_file_name = f"sample_{current_datetime}.csv"
+new_file_name = f"data_{current_datetime}.csv"
 new_file_path = os.path.join(file_repo_path, new_file_name)
 
 df.to_csv(new_file_path, index=False)
