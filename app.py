@@ -1,6 +1,7 @@
 import pandas as pd
 import praw
 import config
+from datetime import datetime
 
 def collect_subreddit_history(subreddit_name, limit=100):
     user_agent = "Searchbot_01"
@@ -15,20 +16,23 @@ def collect_subreddit_history(subreddit_name, limit=100):
     data_list = []
 
     for submission in subreddit.new(limit=limit):
+        created_time = datetime.utcfromtimestamp(submission.created_utc)
         data = {
             "title": submission.title,
             "selftext": submission.selftext,
-            "created_utc": submission.created_utc,
+            "created_utc": created_time,
             "upvotes": submission.score,
             "url": submission.url
-            # Add more fields as required
         }
         data_list.append(data)
 
     return pd.DataFrame(data_list)
 
 df = collect_subreddit_history('watchexchange', limit=5000)
-df.to_csv('sample.csv')
+current_date = datetime.now().strftime("%Y%m%d")
+filename = f"data_{current_date}.csv"
+df.to_csv(filename, index=False)
+#df.to_csv('data.csv')
 print(df.head())
 
 import psycopg2
